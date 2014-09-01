@@ -1,13 +1,13 @@
 /**
- * @file    Multithreading.m
- * @author  Zsolt Mikola (mail@zsoltmikola.com)
+ * @file    TKMultithreading.m
+ * @author  Zsolt Mikola
  * @copyright Zsolt Mikola. All rights reserved.
  */
 
 ////////////////////////////////////////////////////////////////////////////////
 // NSObject methods to handle multithreading
 // -----------------------------------------------------------------------------
-@implementation NSObject (multithreading)
+@implementation NSObject (TKMultithreading)
 
 + (void)dispatchBlock:(void (^)(void))block{
     [NSObject dispatchBlock:block onQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
@@ -49,7 +49,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // UIView methods to handle multithreading (NSObject methods overwritings)
 // -----------------------------------------------------------------------------
-@implementation UIView (multithreading)
+@implementation UIView (TKMultithreading)
 
 + (void)dispatchBlock:(void(^)(void))block{
     [NSObject dispatchBlock:block onQueue:dispatch_get_main_queue()];

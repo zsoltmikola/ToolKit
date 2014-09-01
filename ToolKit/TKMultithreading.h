@@ -1,10 +1,10 @@
 /**
- * @file    Multithreading.h
- * @author  Zsolt Mikola (mail@zsoltmikola.com)
+ * @file    TKMultithreading.h
+ * @author  Zsolt Mikola
  * @copyright Zsolt Mikola. All rights reserved.
  */
 
-@interface NSObject (multithreading)
+@interface NSObject (TKMultithreading)
 
 + (void)dispatchBlock:(void(^)(void))block;
 + (void)dispatchBlock:(void(^)(void))block onQueue:(dispatch_queue_t)queue;
