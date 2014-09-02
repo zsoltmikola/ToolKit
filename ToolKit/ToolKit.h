@@ -6,5 +6,8 @@
     #define _TOOLKIT_
     
     #import "TKMultithreading.h"
+
+// Extensions
+    #import "NSString+ToolKit"
     
 #endif
