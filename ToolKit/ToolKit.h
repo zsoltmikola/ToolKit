@@ -1,3 +1,7 @@
+
+@import Foundation;
+@import UIKit;
+
 #ifndef _TOOLKIT_
     #define _TOOLKIT_
     
