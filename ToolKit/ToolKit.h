@@ -8,7 +8,7 @@
     #import "TKMultithreading.h"
 
 // Extensions
-    #import "Extensions/NSString+ToolKit.h"
-    #import "Extensions/UIColor+ToolKit.h"
+    #import "NSString+ToolKit.h"
+    #import "UIColor+ToolKit.h"
     
 #endif
