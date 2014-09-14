@@ -4,6 +4,8 @@
  * @copyright Zsolt Mikola. All rights reserved.
  */
 
+#import "NSDictionaryBuilder.h"
+
 @implementation NSDictionaryBuilder
 
 - (void)buildFromJSONData:(NSData*)jsonData withCompletionBlock:(void (^)(NSDictionary*))block{

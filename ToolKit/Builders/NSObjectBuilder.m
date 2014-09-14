@@ -4,6 +4,7 @@
  * @copyright Zsolt Mikola. All rights reserved.
  */
 
+#import "NSObjectBuilder.h"
 
 @implementation NSObjectBuilder
 

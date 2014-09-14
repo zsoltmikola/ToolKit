@@ -4,6 +4,8 @@
  * @copyright Zsolt Mikola. All rights reserved.
  */
 
+#import "NSDataBuilder.h"
+
 @interface NSDataBuilder ()
 
 @property (nonatomic, copy) void(^completionBlock)(id);

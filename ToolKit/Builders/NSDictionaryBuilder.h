@@ -4,6 +4,7 @@
  * @copyright Zsolt Mikola. All rights reserved.
  */
 
+#import "NSObjectBuilder.h"
 
 // Builder: produces entities by production specifications
 @interface NSDictionaryBuilder : NSObjectBuilder
