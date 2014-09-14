@@ -10,5 +10,10 @@
 // Extensions
     #import "NSString+ToolKit.h"
     #import "UIColor+ToolKit.h"
-    
+
+// Builders
+    #import "NSObjectBuilder.h"
+    #import "NSDataBuilder.h"
+    #import "NSDictionaryBuilder.h"
+
 #endif
