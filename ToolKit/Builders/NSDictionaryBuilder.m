@@ -25,7 +25,7 @@
                                    NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"Invalid JSON data", nil),
                                    NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Validate the JSON data with a validator", nil)
                                    };
-        error = [NSError errorWithDomain:@"ToolKit" code:1 userInfo:userInfo];
+        self.error = [NSError errorWithDomain:@"ToolKit" code:1 userInfo:userInfo];
     }
     
     block(aDictionary);
