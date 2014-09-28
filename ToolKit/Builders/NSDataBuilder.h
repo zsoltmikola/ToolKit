@@ -8,8 +8,6 @@
 
 @interface NSDataBuilder : NSObjectBuilder <NSURLSessionTaskDelegate, NSURLSessionDataDelegate>
 
-- (void)buildFromURLRequest:(NSMutableURLRequest*)request withCompletionBlock:(void(^)(NSData*))block;
-
-- (NSMutableURLRequest*)JSONMutableURLRequest;
+- (instancetype)buildFromURLRequest:(NSMutableURLRequest*)request withCompletionBlock:(void(^)(NSData*))block;
 
 @end

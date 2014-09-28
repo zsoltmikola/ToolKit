@@ -10,12 +10,13 @@
 
 @property (nonatomic, copy) void(^completionBlock)(id);
 @property (nonatomic, strong) NSMutableData* data;
+@property (nonatomic, strong) NSURLSessionDataTask* dataTask;
 
 @end
 
 @implementation NSDataBuilder
 
-- (void)buildFromURLRequest:(NSMutableURLRequest*)request withCompletionBlock:(void(^)(NSData*))block;{
+- (instancetype)buildFromURLRequest:(NSMutableURLRequest*)request withCompletionBlock:(void(^)(NSData*))block;{
     
     static NSURLSessionConfiguration *configuration;
     static dispatch_once_t onceToken; // <- Makes sure that the instance is initiated once and only once (threads!)
@@ -26,12 +27,13 @@
     
     NSURLSession* session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     
-    NSURLSessionDataTask* dataTask = [session dataTaskWithRequest:request]; // or downloadtask, or upload task!!
+    _dataTask = [session dataTaskWithRequest:request]; // or downloadtask, or upload task!!
     
     _completionBlock = block;
    
-    [dataTask resume];
+    [_dataTask resume];
     
+    return self;
 }
 
 - (NSMutableURLRequest *)JSONMutableURLRequest{
@@ -75,7 +77,7 @@
 
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data{
     [_data appendData:data];
-    self.indeterminateProgress([_data length]);
+    self.indeterminateProgress(_data.length);
 }
 
 /*

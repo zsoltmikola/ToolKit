@@ -14,13 +14,13 @@
 
     _error = [NSError new];
     
-    _indeterminateProgress = ^(int progress){
+    _indeterminateProgress = ^(NSUInteger progress){
         if (!progress) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         }
     };
     
-    _determinateProgress = ^(int progress){
+    _determinateProgress = ^(NSUInteger progress){
         if (!progress) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         }
@@ -34,9 +34,10 @@
     return self;
 }
 
-- (void)buildWithCompletionBlock:(void (^)(id))block{
+- (instancetype)buildWithCompletionBlock:(void (^)(id))block{
     _indeterminateProgress(INT_MAX);
     _determinateProgress(100);
+    return self;
 }
 
 

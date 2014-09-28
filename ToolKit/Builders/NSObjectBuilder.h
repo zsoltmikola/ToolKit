@@ -8,9 +8,10 @@
 @interface NSObjectBuilder : NSObject
 
 @property (nonatomic, strong) NSError* error;
-@property (nonatomic, copy) void(^indeterminateProgress)(int);
-@property (nonatomic, copy) void(^determinateProgress)(int);
+@property (nonatomic, copy) void(^indeterminateProgress)(NSUInteger);
+@property (nonatomic, copy) void(^determinateProgress)(NSUInteger);
+@property (nonatomic, assign) NSTimeInterval timeoutInterval;
 
-- (void)buildWithCompletionBlock:(void(^)(id))block;
+- (instancetype)buildWithCompletionBlock:(void(^)(id))block;
 
 @end
