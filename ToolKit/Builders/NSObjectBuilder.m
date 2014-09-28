@@ -40,6 +40,8 @@
     return self;
 }
 
+- (void)cancel{
 
+}
 
 @end

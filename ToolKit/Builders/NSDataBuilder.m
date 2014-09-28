@@ -36,6 +36,9 @@
     return self;
 }
 
+/* Cancels a data task  */
+- (void)cancel{
+    [_dataTask cancel];
 }
 
 #pragma mark - NSURLSessionTaskDelegate

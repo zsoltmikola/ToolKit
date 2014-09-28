@@ -13,5 +13,6 @@
 @property (nonatomic, assign) NSTimeInterval timeoutInterval;
 
 - (instancetype)buildWithCompletionBlock:(void(^)(id))block;
+- (void)cancel;
 
 @end
