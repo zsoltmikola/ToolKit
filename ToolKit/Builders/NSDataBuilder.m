@@ -36,13 +36,6 @@
     return self;
 }
 
-- (NSMutableURLRequest *)JSONMutableURLRequest{
-    
-    NSMutableURLRequest* request = [NSMutableURLRequest new];
-    request.HTTPShouldUsePipelining = YES;
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
-    return request;
 }
 
 #pragma mark - NSURLSessionTaskDelegate
