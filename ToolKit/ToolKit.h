@@ -10,7 +10,8 @@
 // Extensions
     #import "NSString+ToolKit.h"
     #import "UIColor+ToolKit.h"
-
+    #import "NSMutableURLRequest+ToolKit.h"
+    
 // Builders
     #import "NSObjectBuilder.h"
     #import "NSDataBuilder.h"
