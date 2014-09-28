@@ -13,9 +13,7 @@
     NSError* error = self.error;
     
     NSDictionary* aDictionary;
-    
-    //NSLog(@"data:%@", [NSString stringWithUTF8String:[jsonData bytes]]);
-    
+        
     if ([NSJSONSerialization isValidJSONObject:jsonData]) {
         aDictionary = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
     }else{
