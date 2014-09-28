@@ -10,6 +10,6 @@
 
 @interface NSMutableURLRequest (ToolKit)
 
-+ (instancetype)JSONMutableURLRequest;
++ (instancetype)requestJSON;
 
 @end

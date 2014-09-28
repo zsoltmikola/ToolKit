@@ -10,7 +10,7 @@
 
 @implementation NSMutableURLRequest (ToolKit)
 
-+ (instancetype)JSONMutableURLRequest{
++ (instancetype)requestJSON{
     
     NSMutableURLRequest* request = [[self class] new];
     request.HTTPShouldUsePipelining = YES;
