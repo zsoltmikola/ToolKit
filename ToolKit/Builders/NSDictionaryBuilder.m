@@ -12,11 +12,9 @@
     
     NSError* error = self.error;
     
-    NSDictionary* aDictionary;
+    NSDictionary* aDictionary = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
         
-    if ([NSJSONSerialization isValidJSONObject:jsonData]) {
-        aDictionary = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
-    }else{
+    if (nil == aDictionary) {
         aDictionary = @{};
         NSDictionary *userInfo = @{
                                    NSLocalizedDescriptionKey: NSLocalizedString(@"Invalid JSON data", nil),
