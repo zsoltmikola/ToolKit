@@ -10,11 +10,11 @@
 @implementation NSObject (TKMultithreading)
 
 - (void)dispatchBlock:(void (^)(void))block{
-    [NSObject dispatchBlock:block onQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);
 }
 
 - (void)dispatchBlock:(void (^)(void))block onQueue:(dispatch_queue_t)queue{
-    [NSObject dispatchBlock:block onQueue:queue asBarrier:NO];
+    dispatch_async(queue, block);
 }
 
 - (void)dispatchBlock:(void (^)(void))block onQueue:(dispatch_queue_t)queue asBarrier:(BOOL)isBarrier{
@@ -26,7 +26,7 @@
 }
 
 - (void)runBlock:(void (^)(void))block{
-    [NSObject runBlock:block onQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);
 }
 
 -(void)runBlock:(void (^)(void))block onQueue:(dispatch_queue_t)queue{
@@ -35,11 +35,11 @@
 
 // -----------------------------------------------------------------------------
 
--  (void)objectForBlock:(void(^)(id))block{
-	   
-	[NSObject dispatchBlock:^{
-		block([[self class] new]);
-	}];
++  (void)objectForBlock:(void(^)(id))block{
+	
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        block([[self class] new]);
+    });
 
 }
 
@@ -52,7 +52,7 @@
 @implementation UIView (TKMultithreading)
 
 - (void)dispatchBlock:(void(^)(void))block{
-    [NSObject dispatchBlock:block onQueue:dispatch_get_main_queue()];
+    dispatch_async(dispatch_get_main_queue(), block);
 }
 
 - (void)runBlock:(void (^)(void))block{
@@ -61,11 +61,12 @@
 
 // -----------------------------------------------------------------------------
 
--  (void)objectForBlock:(void(^)(id))block{
-	   
-	[UIView dispatchBlock:^{
-		block([[self class] new]);
-	}];
++  (void)objectForBlock:(void(^)(id))block{
+	
+    dispatch_async(dispatch_get_main_queue(), ^{
+        block([[self class] new]);
+    });
+
 }
 
 @end
