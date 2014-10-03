@@ -17,12 +17,8 @@
     dispatch_async(queue, block);
 }
 
-- (void)dispatchBlock:(void (^)(void))block onQueue:(dispatch_queue_t)queue asBarrier:(BOOL)isBarrier{
-    if (isBarrier) {
-        dispatch_barrier_async(queue, block);
-    }else{
-        dispatch_async(queue, block);
-    }
+- (void)dispatchBarrierBlock:(void (^)(void))block onQueue:(dispatch_queue_t)queue{
+    dispatch_barrier_async(queue, block);
 }
 
 - (void)runBlock:(void (^)(void))block{
@@ -36,11 +32,11 @@
 // -----------------------------------------------------------------------------
 
 +  (void)objectForBlock:(void(^)(id))block{
-	
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         block([[self class] new]);
     });
-
+    
 }
 
 
@@ -62,11 +58,11 @@
 // -----------------------------------------------------------------------------
 
 +  (void)objectForBlock:(void(^)(id))block{
-	
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         block([[self class] new]);
     });
-
+    
 }
 
 @end
