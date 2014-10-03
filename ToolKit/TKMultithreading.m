@@ -31,7 +31,7 @@
 
 // -----------------------------------------------------------------------------
 
-+  (void)initBlock:(void(^)(id))block{
++  (void)objectForBlock:(void(^)(id))block{
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         block([[self class] new]);
@@ -57,7 +57,7 @@
 
 // -----------------------------------------------------------------------------
 
-+  (void)initBlock:(void(^)(id))block{
++  (void)objectForBlock:(void(^)(id))block{
     
     dispatch_async(dispatch_get_main_queue(), ^{
         block([[self class] new]);
