@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "ToolKit"
-  s.version      = "0.7.0"
+  s.version      = "0.8.0"
   s.summary      = "A toolkit for iOS"
   s.homepage     = "https://github.com/zsoltmikola/ToolKit"
   s.license      = "Apache v2 License"
@@ -12,6 +12,10 @@ Pod::Spec.new do |s|
   
   s.subspec 'Multithreading' do |ss|
   	ss.source_files = 'ToolKit/TKMultithreading.{h,m}'
+  end
+  
+  s.subspec 'Logging' do |ss|
+  	ss.source_files = 'ToolKit/Logging/*.{h,m}'
   end
   
   s.subspec 'UserDefaults' do |ss|
