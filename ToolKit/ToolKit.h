@@ -7,7 +7,10 @@
     
     #import "TKMultithreading.h"
     #import "TKUserDefaults.h"
-    
+
+// Logging
+    #import "TKLog.h"
+
 // Extensions
     #import "NSString+ToolKit.h"
     #import "UIColor+ToolKit.h"
