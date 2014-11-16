@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.license      = "Apache v2 License"
   s.author       = "zsoltmikola"
   s.platform     = :ios
-  s.source       = { :git => "https://github.com/zsoltmikola/ToolKit.git", :tag => "0.7.0" }
+  s.source       = { :git => "https://github.com/zsoltmikola/ToolKit.git", :tag => "0.8.0" }
   s.source_files  = 'ToolKit/ToolKit.h'
   s.requires_arc = true
   
@@ -15,6 +15,7 @@ Pod::Spec.new do |s|
   end
   
   s.subspec 'Logging' do |ss|
+	ss.dependency 'ToolKit/Multithreading'
   	ss.source_files = 'ToolKit/Logging/*.{h,m}'
   end
   
