@@ -7,6 +7,7 @@
     
     #import "TKMultithreading.h"
     #import "TKUserDefaults.h"
+    #import "TKDependencyInjector"
 
 // Logging
     #import "TKLog.h"
