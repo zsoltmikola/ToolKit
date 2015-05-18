@@ -4,7 +4,7 @@
  * @copyright Zsolt Mikola. All rights reserved.
  */
 
-#import "DependencyInjector.h"
+#import "TKDependencyInjector.h"
 #import <objc/runtime.h>
 
 @interface TKDependencyInjector ()
