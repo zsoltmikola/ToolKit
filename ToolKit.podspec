@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   	ss.source_files = 'ToolKit/TKMultithreading.{h,m}'
   end
   
-  s.subspec 'Dependency Injection' do |ss|
+  s.subspec 'DependencyInjection' do |ss|
   	ss.source_files = 'ToolKit/TKDependencyInjector.{h,m}'
   end
   
