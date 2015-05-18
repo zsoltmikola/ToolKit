@@ -1,17 +1,21 @@
 Pod::Spec.new do |s|
   s.name         = "ToolKit"
-  s.version      = "0.8.0"
+  s.version      = "0.9.0"
   s.summary      = "A toolkit for iOS"
   s.homepage     = "https://github.com/zsoltmikola/ToolKit"
   s.license      = "Apache v2 License"
   s.author       = "zsoltmikola"
   s.platform     = :ios
-  s.source       = { :git => "https://github.com/zsoltmikola/ToolKit.git", :tag => "0.8.0" }
+  s.source       = { :git => "https://github.com/zsoltmikola/ToolKit.git", :tag => "0.9.0" }
   s.source_files  = 'ToolKit/ToolKit.h'
   s.requires_arc = true
   
   s.subspec 'Multithreading' do |ss|
   	ss.source_files = 'ToolKit/TKMultithreading.{h,m}'
+  end
+  
+  s.subspec 'Dependency Injection' do |ss|
+  	ss.source_files = 'ToolKit/TKDependencyInjector.{h,m}'
   end
   
   s.subspec 'Logging' do |ss|
