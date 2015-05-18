@@ -10,7 +10,7 @@
     #import "TKDependencyInjector.h"
 
 // Logging
-    #import "TKLog.h"
+    //#import "TKLog.h"
 
 // Extensions
     #import "NSString+ToolKit.h"
