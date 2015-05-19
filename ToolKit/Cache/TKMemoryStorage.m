@@ -126,8 +126,8 @@ static short const kSmartCacheMemoryCountLimit = SHRT_MAX;
 }
 
 - (NSString *)description{
-    return [NSString stringWithFormat:@"<%@: %p; size: %d; count: %d; hits: %d; misses: %d; sizeLimit: %d; countLimit: %d;>",
-            NSStringFromClass([self class]), self, self.size, self.count, self.hits, self.misses, self.sizeLimit, self.countLimit];
+    return [NSString stringWithFormat:@"<%@: %p; size: %lu; count: %lu; hits: %lu; misses: %lu; sizeLimit: %lu; countLimit: %d;>",
+            NSStringFromClass([self class]), self, (unsigned long)self.size, (unsigned long)self.count, (unsigned long)self.hits, (unsigned long)self.misses, (unsigned long)self.sizeLimit, self.countLimit];
 }
 
 @end

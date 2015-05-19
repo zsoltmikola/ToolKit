@@ -10,8 +10,8 @@
 @property (nonatomic, assign) int creationTime;
 @property (nonatomic, assign) int expirationTime;
 @property (nonatomic, assign) char priority;
-@property (nonatomic, assign) int size;
-@property (nonatomic, assign) unsigned int hits;
-@property (nonatomic, assign) unsigned int value; // = (lifetime / hits) / relative size for the available space for the cache
+@property (nonatomic, assign) NSUInteger size;
+@property (nonatomic, assign) NSUInteger hits;
+@property (nonatomic, assign) NSUInteger value; // = (lifetime / hits) / relative size for the available space for the cache
 
 @end

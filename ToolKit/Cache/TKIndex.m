@@ -39,8 +39,8 @@
 }
 
 -(NSString *)description{
-    return [NSString stringWithFormat:@"<%@: %p; key: %@; creationTime: %d; expirationTime: %d; priority: %d; size: %d; hits: %d>",
-            NSStringFromClass([self class]), self, self.key, self.creationTime, self.expirationTime, self.priority, self.size, self.hits];
+    return [NSString stringWithFormat:@"<%@: %p; key: %@; creationTime: %d; expirationTime: %d; priority: %d; size: %lu; hits: %lu>",
+            NSStringFromClass([self class]), self, self.key, self.creationTime, self.expirationTime, self.priority, (unsigned long)self.size, (unsigned long)self.hits];
 }
 
 @end

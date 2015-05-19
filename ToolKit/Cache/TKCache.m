@@ -4,8 +4,9 @@
  * @copyright Zsolt Mikola. All rights reserved.
  */
 
-#import "NSString+ToolKit.h"
-#import "TKConcurrentQueue.h"
+
+#import "../NSString+Hashes.h"
+#import "../TKConcurrentQueue.h"
 #import "TKCache.h"
 #import "TKIndex.h"
 #import "TKMemoryStorage.h"
@@ -144,7 +145,7 @@ static int const kSmartCacheInitialAgeLimit = 60*60*24*7;
     return _memory.count + _disk.size;
 }
 
-- (int)sizeLimit{
+- (NSUInteger)sizeLimit{
     return _disk.sizeLimit;
 }
 
@@ -152,7 +153,7 @@ static int const kSmartCacheInitialAgeLimit = 60*60*24*7;
     return _disk.countLimit;
 }
 
-- (void)setSizeLimit:(int)sizeLimit{
+- (void)setSizeLimit:(NSUInteger)sizeLimit{
     _disk.sizeLimit = sizeLimit;
 }
 
@@ -161,8 +162,8 @@ static int const kSmartCacheInitialAgeLimit = 60*60*24*7;
 }
 
 - (NSString *)description{
-    return [NSString stringWithFormat:@"<%@: %p; memory: %d; disk: %d; count: %d; hits: %d; misses: %d; sizeLimit: %d; countLimit: %d; ageLimit: %d>",
-            NSStringFromClass([self class]), self, _memory.size, _disk.size, self.count, self.hits, self.misses, self.sizeLimit, self.countLimit, self.ageLimit];
+    return [NSString stringWithFormat:@"<%@: %p; memory: %lu; disk: %lu; count: %d; hits: %d; misses: %d; sizeLimit: %lu; countLimit: %d; ageLimit: %d>",
+            NSStringFromClass([self class]), self, (unsigned long)_memory.size, (unsigned long)_disk.size, self.count, self.hits, self.misses, (unsigned long)self.sizeLimit, self.countLimit, self.ageLimit];
 }
 
 

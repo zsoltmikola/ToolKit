@@ -1,8 +1,10 @@
-/**
- * @file    TKAbstractStorage.m
- * @author  Zsolt Mikola
- * @copyright Zsolt Mikola. All rights reserved.
- */
+//
+//  SCAbstractStorage.m
+//  diskcache
+//
+//  Created by Zsolt Mikola on 03/02/14.
+//  Copyright (c) 2014 Zsolt Mikola. All rights reserved.
+//
 
 #import "TKAbstractStorage.h"
 
@@ -27,7 +29,7 @@
     return self;
 }
 
-- (void)reduceSizeTo:(int)size{
+- (void)reduceSizeTo:(NSUInteger)size{
     
     if (self.size < size) {
         return;
@@ -91,7 +93,7 @@
 
 #pragma - Abstract methods
 
-- (int)count{return 0;}
+- (NSUInteger)count{return 0;}
 
 - (BOOL)insertObject:(id)object atIndex:(TKIndex *)index{
     [_index setObject:index forKey:index.key];

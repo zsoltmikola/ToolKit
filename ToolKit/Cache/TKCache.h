@@ -4,11 +4,12 @@
  * @copyright Zsolt Mikola. All rights reserved.
  */
 
+
 ////////////////////////////////////////////////////////////////////////////////
 
 @interface TKCache : NSObject
 
-@property (nonatomic, assign) int sizeLimit;
+@property (nonatomic, assign) NSUInteger sizeLimit;
 @property (nonatomic, assign) short countLimit;
 @property (nonatomic, assign) int ageLimit;
 @property (nonatomic, assign, readonly) unsigned int hits;
