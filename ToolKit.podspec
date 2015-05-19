@@ -9,6 +9,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/zsoltmikola/ToolKit.git", :tag => "0.10.1" }
   s.source_files  = 'ToolKit/ToolKit.h'
   s.requires_arc = true
+  s.ios.deployment_target = '7.0'
   
   s.subspec 'Multithreading' do |ss|
   	ss.source_files = 'ToolKit/Multithreading/*.{h,m}'
