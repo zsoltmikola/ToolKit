@@ -5,7 +5,8 @@
 #ifndef _TOOLKIT_
     #define _TOOLKIT_
     
-    #import "TKMultithreading.h"
+    #import "Multithreading/TKQueue.h"
+    #import "Multithreading/TKConcurrentQueue.h"
     #import "TKUserDefaults.h"
     #import "TKDependencyInjector.h"
 
