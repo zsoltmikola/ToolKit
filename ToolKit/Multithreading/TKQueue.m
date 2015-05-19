@@ -22,17 +22,17 @@
     
     if (!(self = [super init])) return self;
     
-    _queue = dispatch_queue_create(domain, DISPATCH_QUEUE_SERIAL);
+    self.queue = dispatch_queue_create(domain, DISPATCH_QUEUE_SERIAL);
     
     return self;
 }
 
 - (void)dispatchBlock:(void (^)(void))block{
-    dispatch_async(_queue, block);
+    dispatch_async(self.queue, block);
 }
 
 - (void)runBlock:(void (^)(void))block{
-    dispatch_sync(_queue, block);
+    dispatch_sync(self.queue, block);
 }
 
 @end
