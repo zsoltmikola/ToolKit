@@ -4,8 +4,8 @@
  * @copyright Zsolt Mikola. All rights reserved.
  */
 
-#import "../NSString+Hashes.h"
-#import "../TKConcurrentQueue.h"
+#import "NSString+Hashes.h"
+#import "TKConcurrentQueue.h"
 #import "TKCache.h"
 #import "TKIndex.h"
 #import "TKMemoryStorage.h"
