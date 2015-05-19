@@ -5,8 +5,8 @@
  */
 
 
-#import "../NSString+Hashes.h"
-#import "../TKConcurrentQueue.h"
+#import "NSString+ToolKit.h"
+#import "TKConcurrentQueue.h"
 #import "TKCache.h"
 #import "TKIndex.h"
 #import "TKMemoryStorage.h"
