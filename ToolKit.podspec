@@ -1,12 +1,12 @@
 Pod::Spec.new do |s|
   s.name         = "ToolKit"
-  s.version      = "0.10.1"
+  s.version      = "0.11.0"
   s.summary      = "A toolkit for iOS"
   s.homepage     = "https://github.com/zsoltmikola/ToolKit"
   s.license      = "Apache v2 License"
   s.author       = "zsoltmikola"
   s.platform     = :ios
-  s.source       = { :git => "https://github.com/zsoltmikola/ToolKit.git", :tag => "0.10.1" }
+  s.source       = { :git => "https://github.com/zsoltmikola/ToolKit.git", :tag => "0.11.0" }
   s.source_files  = 'ToolKit/ToolKit.h'
   s.requires_arc = true
   s.ios.deployment_target = '7.0'
@@ -24,8 +24,8 @@ Pod::Spec.new do |s|
 #  	ss.source_files = 'ToolKit/Logging/*.{h,m}'
 #  end
   
-  s.subspec 'UserDefaults' do |ss|
-  	ss.source_files = 'ToolKit/TKUserDefaults.{h,m}'
+  s.subspec 'PListManager' do |ss|
+  	ss.source_files = 'ToolKit/TKPListManager.{h,m}'
   end
   
   s.subspec 'Extensions' do |ss|
