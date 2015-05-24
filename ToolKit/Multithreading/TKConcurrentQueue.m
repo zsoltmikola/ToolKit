@@ -1,10 +1,8 @@
-//
-//  TKConcurrentQueue.m
-//  toolkit
-//
-//  Created by Zsolt Mikola on 19/05/15.
-//  Copyright (c) 2015 Zsolt Mikola. All rights reserved.
-//
+/**
+ * @file    TKConcurrentQueue.m
+ * @author  Zsolt Mikola
+ * @copyright Zsolt Mikola. All rights reserved.
+ */
 
 #import "TKConcurrentQueue.h"
 
