@@ -3,7 +3,7 @@
  * @author  Zsolt Mikola
  * @copyright Zsolt Mikola. All rights reserved.
  */
-
+#import <Foundation/Foundation.h>
 
 @interface NSObjectBuilder : NSObject
 

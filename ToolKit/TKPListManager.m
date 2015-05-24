@@ -4,6 +4,7 @@
  * @copyright Zsolt Mikola. All rights reserved.
  */
 
+#import <UIKit/UIKit.h>
 #import "TKPListManager.h"
 
 @interface TKPListManager ()
