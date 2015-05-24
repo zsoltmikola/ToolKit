@@ -1,9 +1,9 @@
 
 @import Foundation;
-#import "TKLogProtocols.h"
+#import "TKLogCollectorDelegate.h"
 
-@interface TKLogCollectorTerminal : NSObject <TKLogCollector>
+@interface TKLogCollectorTerminal : NSObject <TKLogCollectorDelegate>
 
-@property (nonatomic, strong) id<TKLogConverter> converter;
+@property (nonatomic, copy) NSString* format;
     
 @end
