@@ -32,7 +32,7 @@
     params[@"<domain>"] = self.domain;
     params[@"<basefile>"] = [[NSString stringWithUTF8String:self.file] componentsSeparatedByString:@"/"].lastObject;
     params[@"<file>"] = [NSString stringWithUTF8String:self.file];
-    params[@"<line>"] = [NSString stringWithFormat:@"%d", self.line];
+    params[@"<line>"] = [NSString stringWithFormat:@"%lu", (unsigned long)self.line];
     params[@"<function>"] = [[NSString stringWithUTF8String:self.function] stringByReplacingOccurrencesOfString:@"-" withString:@""];
     params[@"<message>"] = self.text;
     
