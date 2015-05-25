@@ -11,16 +11,13 @@
     #import "TKDependencyInjector.h"
 
 // Logging
-    //#import "TKLog.h"
+    #import "TKLog.h"
+
+// Caching
+    #import "TKCache.h"
 
 // Extensions
     #import "NSString+ToolKit.h"
     #import "UIColor+ToolKit.h"
-    #import "NSMutableURLRequest+ToolKit.h"
     
-// Builders
-    #import "NSObjectBuilder.h"
-    #import "NSDataBuilder.h"
-    #import "NSDictionaryBuilder.h"
-
 #endif
