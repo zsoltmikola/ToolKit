@@ -2,7 +2,7 @@
  * @file    TKColorPalette.h
  * @author  Zsolt Mikola
  * @copyright Zsolt Mikola. All rights reserved.
- * @brief Unified read/write of user defaults + bundle plists
+ * @brief A color manager
  */
 
 #import <UIKit/UIKit.h>
