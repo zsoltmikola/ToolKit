@@ -21,63 +21,119 @@
     
     _standardUserDefaults = [NSUserDefaults standardUserDefaults];
     
-    // Synchronize defaults when app resigns from active state
-    [[NSNotificationCenter defaultCenter] addObserver:_standardUserDefaults selector:@selector(synchronize) name:UIApplicationWillResignActiveNotification object:nil];
-    
     return self;
 }
 
-- (void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (id)valueForKeyPath:(NSString *)keyPath{
+- (void)setObject:(id)object forKeyedSubscript:(NSString*)key{
     
-    // Check in user defaults
-    if (nil != [_standardUserDefaults valueForKeyPath:keyPath]){
-     return [_standardUserDefaults valueForKeyPath:keyPath];
+    if (!key) {
+        return;
     }
     
-    // No success with user defaults, load the plist file from the bundle, register it to defaults and return the value
-    NSArray *parts = [keyPath componentsSeparatedByString:@"."];
-    NSString* filename = parts.firstObject;
-    NSString *settingsFile = [[NSBundle mainBundle] pathForResource:filename ofType:@"plist" inDirectory:@""];
+    // if object is nil, remove the entry
+    if (!object) {
+        [_standardUserDefaults removeObjectForKey:key];
+        
+        [_standardUserDefaults synchronize];
+        
+        return;
+    }
     
-    // If there is not settings file, return nil
-    if(![[NSFileManager defaultManager] fileExistsAtPath:settingsFile]) return nil;
-    
-    NSDictionary* newDefaults = @{filename : [[NSDictionary alloc] initWithContentsOfFile:settingsFile]};
-    
-    // If there is no values in the file, return nil
-    if (!newDefaults[filename]) return nil;
-    
-    // Register the plist file the user defaults
-    [_standardUserDefaults registerDefaults:newDefaults];
-    
-    return [_standardUserDefaults valueForKeyPath:keyPath];
-
-}
-
-- (void)setValue:(id)value forKeyPath:(NSString *)keyPath{
     NSMutableArray *parts;
-    if ([keyPath rangeOfString:@"."].length > 0) {
-        parts = [keyPath componentsSeparatedByString:@"."].mutableCopy;
+    
+    if ([key rangeOfString:@"."].length == 0) {
+        parts = @[key].mutableCopy;
     }else{
-        parts = @[keyPath].mutableCopy;
+        parts = [key componentsSeparatedByString:@"."].mutableCopy;
     }
     
     NSString* root = parts.firstObject;
-    NSMutableDictionary* settings = [[NSMutableDictionary alloc] initWithDictionary:[self valueForKeyPath:root]];
     
-    if (parts.count > 1) {
-        [parts removeObjectAtIndex:0];
-        [settings setValue:value forKeyPath:[parts componentsJoinedByString:@"."]];
-    }else{
-        settings = value;
+    [parts removeObjectAtIndex:0];
+    
+    // if key was a simple name, store the value
+    if (!parts.count) {
+        [_standardUserDefaults setValue:object forKey:key];
+        
+        [_standardUserDefaults synchronize];
+        
+        return;
     }
     
-    [_standardUserDefaults setObject:settings forKey:root];
+    // parts > 1, so we're storing a dictionary
+    id storedObject = [_standardUserDefaults objectForKey:root];
+    
+    // If there is no value for the key yet, try to load a supplied bundle plist
+    if (!storedObject) {
+        [self loadBundlePlist:root];
+        storedObject = [_standardUserDefaults objectForKey:root];
+    }
+    
+    NSMutableDictionary* value;
+    
+    // If the original stored object is a dictionary, then use keypath,
+    // else replace the original value with a dictionary
+    
+    if ([storedObject isKindOfClass:[NSDictionary class]]) {
+        value = ((NSDictionary*)storedObject).mutableCopy;
+        // TODO: Check if the path exists in this dictionary. If not, create it
+    }else{
+        if (storedObject) {
+            [_standardUserDefaults removeObjectForKey:root];
+        }
+        
+        value = [NSMutableDictionary dictionaryWithCapacity:0];
+        NSMutableDictionary* temp = value;
+        for (NSString* keyPart in parts) {
+            temp[keyPart] = @{}.mutableCopy;
+            temp = temp[keyPart];
+        }
+    }
+    
+    [value setValue:object forKeyPath:[parts componentsJoinedByString:@"."]];
+    
+    [_standardUserDefaults setObject:value forKey:root];
+    
+    [_standardUserDefaults synchronize];
+    
+    return;
 }
 
+- (id)objectForKeyedSubscript:(NSString*)key{
+    
+    // Check user defaults for the value. If there is, return the object.
+    if ([_standardUserDefaults valueForKeyPath:key]){
+        return [_standardUserDefaults valueForKeyPath:key];
+    }
+    
+    // Load the supplied plist file
+    NSArray *parts = [key componentsSeparatedByString:@"."];
+    [self loadBundlePlist:parts.firstObject];
+
+    return [_standardUserDefaults valueForKeyPath:key];
+}
+
+- (void)loadBundlePlist:(NSString*)plist{
+    
+    NSString *plistFile = [[NSBundle mainBundle] pathForResource:plist ofType:@"plist" inDirectory:@""];
+    
+    // If there is no plist file like that, return
+    if(![[NSFileManager defaultManager] fileExistsAtPath:plistFile]){
+        return;
+    }
+    
+    NSDictionary* newDefaults = @{plist : [[NSDictionary alloc] initWithContentsOfFile:plistFile]};
+    
+    // If there is no values in the file, return nil
+    if (!newDefaults[plist]){
+        return;
+    }
+    
+    // Register the plist file the user defaults
+    [_standardUserDefaults registerDefaults:newDefaults];
+ 
+    [_standardUserDefaults synchronize];
+    
+}
 
 @end

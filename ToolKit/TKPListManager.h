@@ -9,7 +9,7 @@
 
 @interface TKPListManager : NSObject
 
-- (id)valueForKeyPath:(NSString *)keyPath;
-- (void)setValue:(id)value forKeyPath:(NSString *)keyPath;
+- (void)setObject:(id)object forKeyedSubscript:(NSString*)key;
+- (id)objectForKeyedSubscript:(NSString*)key;
 
 @end
