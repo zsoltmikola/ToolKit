@@ -21,7 +21,7 @@
  * @param block The block what needs to be dispatched
  * @return void
  */
-+ (void)dispatchBlock:(void (^)(void))block;
++ (void)dispatch:(void (^)(void))block;
 
 /**
  * Dispatches a barrier block on the default global queue
@@ -33,7 +33,7 @@
  * @param block The block what needs to be dispatched
  * @return void
  */
-+ (void)dispatchBarrierBlock:(void (^)(void))block;
++ (void)dispatchBarrier:(void (^)(void))block;
 
 /**
  * Dispatches a barrier block on a custom queu
@@ -45,7 +45,7 @@
  * @param block The block what needs to be dispatched
  * @return void
  */
-- (void)dispatchBarrierBlock:(void (^)(void))block;
+- (instancetype)dispatchBarrier:(void (^)(void))block;
 
 @end
 

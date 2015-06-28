@@ -64,7 +64,7 @@ static int const kSmartCacheInitialAgeLimit = 60*60*24*7;
 
 - (void)clean{
     
-    [_smartcacheQueue dispatchBarrierBlock:^{
+    [_smartcacheQueue dispatchBarrier:^{
         [_memory reduceSizeTo:0];
     }];
 
@@ -91,12 +91,12 @@ static int const kSmartCacheInitialAgeLimit = 60*60*24*7;
     cacheIndex.priority = priority;
     
     // Save to the memory
-    [_smartcacheQueue dispatchBarrierBlock:^{
+    [_smartcacheQueue dispatchBarrier:^{
         [_memory insertObject:object atIndex:cacheIndex];
     }];
     
     // Save to disk then delete from memory
-    [_smartcacheQueue dispatchBarrierBlock:^{
+    [_smartcacheQueue dispatchBarrier:^{
         if ([_disk insertObject:object atIndex:cacheIndex]) {
             [_memory removeObjectAtIndex:cacheIndex];
         }
@@ -112,13 +112,13 @@ static int const kSmartCacheInitialAgeLimit = 60*60*24*7;
     cacheIndex.key = key.md5;
     
     // Get it from the memory
-    [_smartcacheQueue runBlock:^{
+    [_smartcacheQueue run:^{
         result = [_memory objectAtIndex:cacheIndex];
     }];
     
     if (nil == result) {
         // Get it from the disk (check if it exists!)
-        [_smartcacheQueue runBlock:^{
+        [_smartcacheQueue run:^{
             result = [_disk objectAtIndex:cacheIndex];
         }];
     }

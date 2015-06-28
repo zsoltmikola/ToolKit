@@ -28,7 +28,7 @@
         message.format = self.format;
     }   
    
-    [self.queue dispatchBlock:^{
+    [self.queue dispatch:^{
 
         puts([message.description cStringUsingEncoding:NSUTF8StringEncoding]);
         

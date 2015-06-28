@@ -14,9 +14,15 @@
 
 @implementation TKQueue
 
-+ (void)runBlock:(void (^)(void))block{
-    dispatch_sync(dispatch_get_main_queue(), block);
++ (void)run:(void (^)(void))block{
+    dispatch_async(dispatch_get_main_queue(), block);
 }
+
++ (instancetype)queueWithDomain:(const char*)domain{
+    
+    return [[TKQueue alloc] initWithDomain:domain];
+}
+
 
 - (instancetype)initWithDomain:(const char*)domain{
     
@@ -27,12 +33,14 @@
     return self;
 }
 
-- (void)dispatchBlock:(void (^)(void))block{
+- (instancetype)dispatch:(void (^)(void))block{
     dispatch_async(self.queue, block);
+    return self;
 }
 
-- (void)runBlock:(void (^)(void))block{
+- (instancetype)run:(void (^)(void))block{
     dispatch_sync(self.queue, block);
+    return self;
 }
 
 @end

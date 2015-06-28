@@ -15,16 +15,25 @@
 
 @implementation TKConcurrentQueue
 
-+ (void)runBlock:(void (^)(void))block{
++ (void)run:(void (^)(void))block{
     dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);
 }
 
-+ (void)dispatchBlock:(void (^)(void))block{
++ (void)dispatch:(void (^)(void))block{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);
 }
 
-+ (void)dispatchBarrierBlock:(void (^)(void))block{
++ (void)dispatchBarrier:(void (^)(void))block{
     dispatch_barrier_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);
+}
+
+- (instancetype)init
+{
+    if (!(self = [super init])) return self;
+    
+    self.queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    return self;
 }
 
 - (instancetype)initWithDomain:(const char*)domain{
@@ -36,10 +45,10 @@
     return self;
 }
 
-- (void)dispatchBarrierBlock:(void (^)(void))block{
+- (instancetype)dispatchBarrier:(void (^)(void))block{
     
     dispatch_barrier_async(self.queue, block);
-    
+    return self;
 }
 
 @end

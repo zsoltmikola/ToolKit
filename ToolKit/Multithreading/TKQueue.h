@@ -23,7 +23,16 @@
  * @param block The block, which needs to be run on the main queue/thread.
  * @return void
  */
-+ (void)runBlock:(void (^)(void))block;
++ (void)run:(void (^)(void))block;
+
+/**
+ * Initializes a custom (serial) queue with a domain.
+ *
+ * @param domain The domain of the queue
+ * @return TKQueue
+ */
++ (instancetype)queueWithDomain:(const char*)domain;
+
 
 /**
  * Initializes a custom (serial) queue with a domain.
@@ -40,7 +49,7 @@
  * @param block The block, which needs to be dispatched on the custom queue.
  * @return void
  */
-- (void)dispatchBlock:(void (^)(void))block;
+- (instancetype)dispatch:(void (^)(void))block;
 
 /**
  * Waits until the previously setup custom queue becomes empty, then executes the
@@ -49,7 +58,7 @@
  * @param block The block, which needs to be run on the custom queue.
  * @return void
  */
-- (void)runBlock:(void (^)(void))block;
+- (instancetype)run:(void (^)(void))block;
 
 @end
 
