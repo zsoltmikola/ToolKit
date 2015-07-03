@@ -18,6 +18,7 @@
     _file = file;
     _line = line;
     _function = function;
+    _mediaTime = CACurrentMediaTime();
     
     _format = @"[[<time>]<basefile>(<line>)]<function>:<message>";
     
