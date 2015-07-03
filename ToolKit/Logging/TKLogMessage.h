@@ -6,8 +6,7 @@
 @property (nonatomic, readonly, copy) NSString* domain;
 @property (nonatomic, readonly, copy) NSString* text;
 
-@property (nonatomic, readonly, assign) const char * date;
-@property (nonatomic, readonly, assign) const char * time;
+@property (nonatomic, readonly, strong) NSDate* time;
 @property (nonatomic, readonly, assign) const char * file;
 @property (nonatomic, readonly, assign) NSUInteger line;
 @property (nonatomic, readonly, assign) const char* function;

@@ -27,9 +27,10 @@
 @end
 
 #define TKLogMessage(domain, format, ...)\
+if(format){\
 TKLogMessage* message = [[TKLogMessage alloc] initWithDomain:domain withFile:__FILE__ withLine:__LINE__ withFunction:__FUNCTION__ withFormat:(format), ## __VA_ARGS__ ];\
 [TKLog log:message];\
-
+}\
 
 #define TKLogWarn(format, ...) TKLogMessage(@"warning", format, ##__VA_ARGS__)
 #define TKLogInfo(format, ...) TKLogMessage(@"info" , format, ##__VA_ARGS__)

@@ -14,21 +14,19 @@
     va_end(args);
     
     _domain = domain;
-    _time = __TIME__;
-    _date = __DATE__;
+    _time = [NSDate date];
     _file = file;
     _line = line;
     _function = function;
     
-    _format = @"[<basefile>(<line>)]<function>:<message>";
+    _format = @"[[<time>]<basefile>(<line>)]<function>:<message>";
     
     return self;
 }
 
 - (NSString *)description{
     NSMutableDictionary* params = @{}.mutableCopy;
-    params[@"<date>"] = [NSString stringWithUTF8String:self.date];
-    params[@"<time>"] = [NSString stringWithUTF8String:self.time];
+    params[@"<time>"] = self.time.description;
     params[@"<domain>"] = self.domain;
     params[@"<basefile>"] = [[NSString stringWithUTF8String:self.file] componentsSeparatedByString:@"/"].lastObject;
     params[@"<file>"] = [NSString stringWithUTF8String:self.file];
