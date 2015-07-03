@@ -7,7 +7,7 @@
 #import "TKTask.h"
 #import "TKQueue.h"
 #import "TKConcurrentQueue.h"
-
+#import "TKLog.h"
 
 struct BlockLiteral {
     void *isa; // initialized to &_NSConcreteStackBlock or &_NSConcreteGlobalBlock
@@ -63,29 +63,21 @@ static inline NSMethodSignature* NSMethodSignatureForBlock(id block) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-
-
-@interface TKTask ()
-
-@property (nonatomic, strong) TKTask* nextTask;
-@property (nonatomic, copy) id(^blockToExecute)();
-@property (nonatomic, assign) BOOL isMain;
-@property (nonatomic, copy) void(^errorBlock)();
-
-@end
-
 @implementation TKTask
 
-+ (TKTask *)task{
-    TKTask* aTask = [TKTask new];
-    aTask.blockToExecute = (id)^{return nil;};
-    aTask.isMain = NO;
-    return aTask;
+- (instancetype)init
+{
+    if (!(self = [super init])) return self;
+    
+    self.blockToExecute = (id)^{};
+    self.isMain = NO;
+    
+    return self;
 }
 
--(TKTask*(^)())run
+- (TKTask*(^)())run
 {
-    return ^(id(^blockToExecute)()){
+    return ^(TKTask*(^blockToExecute)(id)){
         TKTask *task = [TKTask new];
         self.nextTask = task;
         task.blockToExecute = blockToExecute;
@@ -94,14 +86,21 @@ static inline NSMethodSignature* NSMethodSignatureForBlock(id block) {
     };
 }
 
--(TKTask*(^)())dispatch
+- (TKTask*(^)())dispatch
 {
-    return ^(id(^blockToExecute)()){
+    return ^(TKTask*(^blockToExecute)(id)){
         TKTask *task = [TKTask new];
         self.nextTask = task;
         task.blockToExecute = blockToExecute;
         task.isMain = NO;
         return task;
+    };
+}
+
+-(void(^)(id))catch
+{
+    return ^(void(^errorBlock)(NSError*)){
+        _errorBlock = errorBlock;
     };
 }
 
@@ -116,10 +115,12 @@ static inline NSMethodSignature* NSMethodSignatureForBlock(id block) {
 
 - (void(^)())encapsulateBlock:(id(^)())block{
     return ^{
+        
         id returnValue = [self executeBlock:_blockToExecute];
         
         if (![returnValue isKindOfClass:[NSError class]]) {
             if (_nextTask) {
+                _nextTask.param = returnValue;
                 [_nextTask execute];
             }
         }else{
@@ -137,21 +138,13 @@ static inline NSMethodSignature* NSMethodSignatureForBlock(id block) {
         const char rtype = signature.methodReturnType[0];
         
         if(rtype == 'v') {
-            ((void(^)())_blockToExecute)();
+            ((void(^)())_blockToExecute)(_param);
         } else {
-            returnValue = _blockToExecute();
+            returnValue = _blockToExecute(_param);
         }
     }
     
     return returnValue;
-}
-
-
--(void(^)(id))catch
-{
-    return ^(void(^errorBlock)(NSError*)){
-        _errorBlock = errorBlock;
-    };
 }
 
 - (void)abortWithError:(NSError*)error{
@@ -160,6 +153,8 @@ static inline NSMethodSignature* NSMethodSignatureForBlock(id block) {
     }else{
         if (_nextTask) {
             [_nextTask abortWithError:error];
+        }else{
+            TKLogDebug(error.description);
         }
     }
 }
