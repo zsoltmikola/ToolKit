@@ -1,10 +1,8 @@
-//
-//  TKNetworkSessionDataTask.m
-//  toolkit
-//
-//  Created by Zsolt Mikola on 28/06/15.
-//  Copyright (c) 2015 Westwing. All rights reserved.
-//
+/**
+ * @file    TKNetworkDataTask.m
+ * @author  Zsolt Mikola
+ * @copyright Zsolt Mikola. All rights reserved.
+ */
 
 #import "TKNetworkDataTask.h"
 

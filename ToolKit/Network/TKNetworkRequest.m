@@ -1,10 +1,8 @@
-//
-//  TKNetworkRequestBuilder.m
-//  toolkit
-//
-//  Created by Zsolt Mikola on 30/06/15.
-//  Copyright (c) 2015 Westwing. All rights reserved.
-//
+/**
+ * @file    TKNetworkRequest.m
+ * @author  Zsolt Mikola
+ * @copyright Zsolt Mikola. All rights reserved.
+ */
 
 #import "TKNetworkRequest.h"
 

@@ -1,10 +1,8 @@
-//
-//  TKSerializer.h
-//  toolkit
-//
-//  Created by Zsolt Mikola on 05/07/15.
-//  Copyright (c) 2015 Westwing. All rights reserved.
-//
+/**
+ * @file    TKSerializer.h
+ * @author  Zsolt Mikola
+ * @copyright Zsolt Mikola. All rights reserved.
+ */
 
 #import <Foundation/Foundation.h>
 

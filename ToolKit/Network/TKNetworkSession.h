@@ -1,10 +1,8 @@
-//
-//  TKNetworkSession.h
-//  toolkit
-//
-//  Created by Zsolt Mikola on 28/06/15.
-//  Copyright (c) 2015 Westwing. All rights reserved.
-//
+/**
+ * @file    TKNetworkSession.h
+ * @author  Zsolt Mikola
+ * @copyright Zsolt Mikola. All rights reserved.
+ */
 
 #import <Foundation/Foundation.h>
 
