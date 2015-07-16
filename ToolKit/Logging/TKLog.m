@@ -32,7 +32,8 @@
     if(!domainLoggers.count) return;
     
     for (id<TKLogCollectorDelegate> logger in [TKLog sharedInstance].loggers[message.domain]) {
-        [logger logMessage:message];
+        [logger compileMessage:message];
+        [logger commit];
     }
 }
 

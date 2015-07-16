@@ -5,6 +5,8 @@
 
 @property (nonatomic, assign) BOOL useRelativeTimes;
 
-- (void)logMessage:(TKLogMessage*)message;
+- (void)compileMessage:(TKLogMessage*)message;
+
+- (void)commit;
 
 @end

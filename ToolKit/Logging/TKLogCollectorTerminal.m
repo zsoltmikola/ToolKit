@@ -8,7 +8,8 @@
 @interface TKLogCollectorTerminal ()
 
 @property (nonatomic, strong) TKQueue* queue;
-@property (nonatomic, strong)  NSMutableDictionary* previousMediaTimes;
+@property (nonatomic, strong) NSMutableDictionary* previousMediaTimes;
+@property (nonatomic, assign) const char * compiledMessage;
 
 @end
 
@@ -25,8 +26,8 @@
     return self;
 }
 
-- (void)logMessage:(TKLogMessage *)message{
-
+- (void)compileMessage:(TKLogMessage *)message{
+    
     if (self.format) {
         message.format = self.format;
     }
@@ -43,11 +44,13 @@
         message.format = [message.format stringByReplacingOccurrencesOfString:@"<time>" withString:[NSString stringWithFormat:@"%f s", mediaTimeDelta] options:NSLiteralSearch range:NSMakeRange(0, message.format.length)];
     }
     
+    _compiledMessage = [message.description cStringUsingEncoding:NSUTF8StringEncoding];
+}
+
+- (void)commit{
     [self.queue dispatch:^{
-        puts([message.description cStringUsingEncoding:NSUTF8StringEncoding]);
-        
+        puts(_compiledMessage);        
     }];
-    
 }
 
 @end
