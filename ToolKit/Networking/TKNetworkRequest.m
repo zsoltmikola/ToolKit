@@ -111,8 +111,8 @@
     
     NSMutableURLRequest* request = [self build];
     
-    return [NSString stringWithFormat:@"<%@: %p; method: %@; URL: %@; timeoutInterval: %f; HTTPShouldUsePipelining: %@; allowsCellularAccess: %@; charset: %d; encoding: %d; headers: %@>",
-            NSStringFromClass([self class]), self, _HTTPMethods[_HTTPMethod], request.URL, request.timeoutInterval ? request.timeoutInterval : 60, request.HTTPShouldUsePipelining ? @"YES" : @"NO", request.allowsCellularAccess ? @"YES" : @"NO", self.charset, self.encoding, request.allHTTPHeaderFields];
+    return [NSString stringWithFormat:@"<%@: %p; method: %@; URL: %@; timeoutInterval: %f; HTTPShouldUsePipelining: %@; allowsCellularAccess: %@; charset: %lu; encoding: %lu; headers: %@>",
+            NSStringFromClass([self class]), self, _HTTPMethods[_HTTPMethod], request.URL, request.timeoutInterval ? request.timeoutInterval : 60, request.HTTPShouldUsePipelining ? @"YES" : @"NO", request.allowsCellularAccess ? @"YES" : @"NO", (unsigned long)self.charset, (unsigned long)self.encoding, request.allHTTPHeaderFields];
     
 }
 

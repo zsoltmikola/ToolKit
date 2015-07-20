@@ -7,7 +7,6 @@
 #import "TKTask.h"
 #import "TKQueue.h"
 #import "TKConcurrentQueue.h"
-#import "TKLog.h"
 
 struct BlockLiteral {
     void *isa; // initialized to &_NSConcreteStackBlock or &_NSConcreteGlobalBlock
@@ -154,7 +153,7 @@ static inline NSMethodSignature* NSMethodSignatureForBlock(id block) {
         if (_nextTask) {
             [_nextTask abortWithError:error];
         }else{
-            TKLogDebug(error.description);
+            NSLog(error.description);
         }
     }
 }

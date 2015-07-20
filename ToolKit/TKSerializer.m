@@ -5,7 +5,6 @@
  */
 
 #import "TKSerializer.h"
-#import "TKNetworkResponse.h"
 
 @implementation TKStringSerializer
 

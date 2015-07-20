@@ -89,8 +89,8 @@
 }
 
 -(NSString *)description{
-    return [NSString stringWithFormat:@"<%@: %p; URL: %@; statusCode: %d; error: %@; charset: %d; headers: %@;>",
-            NSStringFromClass([self class]), self, self.URL, self.statusCode, self.error, self.charset, self.headers];
+    return [NSString stringWithFormat:@"<%@: %p; URL: %@; statusCode: %lu; error: %@; charset: %lu; headers: %@;>",
+            NSStringFromClass([self class]), self, self.URL, (unsigned long)self.statusCode, self.error, (unsigned long)self.charset, self.headers];
 }
 
 @end
