@@ -153,7 +153,7 @@ static inline NSMethodSignature* NSMethodSignatureForBlock(id block) {
         if (_nextTask) {
             [_nextTask abortWithError:error];
         }else{
-            NSLog(error.description);
+            NSLog(@"%@", error.description);
         }
     }
 }
