@@ -14,4 +14,5 @@
 @property (nonatomic, readonly) NSString *sha384;
 @property (nonatomic, readonly) NSString *sha512;
 
++ (NSString*)stringWithRandomStringWithLength:(NSUInteger)length;
 @end

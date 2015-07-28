@@ -22,7 +22,7 @@ static inline NSString *NSStringCCHashFunction(unsigned char *(function)(const v
     
     return output;
 }
-                             
+
 @implementation NSString (Hashes)
 
 - (NSString *)md5
@@ -52,6 +52,30 @@ static inline NSString *NSStringCCHashFunction(unsigned char *(function)(const v
 - (NSString *)sha512
 {
     return NSStringCCHashFunction(CC_SHA512, CC_SHA512_DIGEST_LENGTH, self);
+}
+
++ (NSString*)stringWithRandomStringWithLength:(NSUInteger)length{
+    
+    if (!length) {
+        return @"";
+    }
+    
+    static NSArray* array;
+    if (!array) {
+        array = @[@"euismod", @"rutrum", @"dignissim", @"ipsum", @"convallis", @"dui", @"purus", @"vulputate", @"a", @"erat", @"urna", @"gravida", @"ullamcorper", @"tristique", @"laoreet", @"scelerisque", @"velit", @"elementum", @"conubia", @"sit", @"aptent", @"nullam", @"mus", @"netus", @"mollis", @"pharetra", @"montes", @"etiam", @"cursus", @"egestas", @"lacinia", @"mi", @"habitasse", @"eros", @"faucibus", @"aliquet", @"posuere", @"auctor", @"volutpat", @"ridiculus", @"natoque", @"mauris", @"pulvinar", @"platea", @"dapibus", @"efficitur", @"facilisis", @"venenatis", @"senectus", @"eleifend", @"vestibulum", @"vitae", @"nam", @"donec", @"vel", @"primis", @"ultricies", @"nascetur", @"aliquam", @"ornare", @"est", @"commodo", @"duis", @"quis", @"finibus", @"ac", @"ad", @"tortor", @"at", @"nunc", @"felis", @"inceptos", @"elit", @"orci", @"sagittis", @"porta", @"adipiscing", @"penatibus", @"molestie", @"odio", @"dictumst", @"cum", @"taciti", @"hendrerit", @"vivamus", @"aenean", @"amet", @"lorem", @"class", @"accumsan", @"maximus", @"sapien", @"blandit", @"morbi", @"parturient", @"facilisi", @"justo", @"dolor", @"risus", @"magna", @"tellus", @"ante", @"quam", @"nostra", @"quisque", @"dis", @"mattis", @"praesent", @"sed", @"sem", @"ultrices", @"turpis", @"leo", @"semper", @"litora", @"fames", @"et", @"eu", @"tempor", @"ex", @"magnis", @"cubilia", @"cras", @"dictum", @"fermentum", @"curae", @"nisi", @"nisl", @"malesuada", @"feugiat", @"massa", @"fusce", @"sociis", @"integer", @"diam", @"ut", @"lectus", @"consectetur", @"ligula", @"arcu", @"placerat", @"sociosqu", @"condimentum", @"congue", @"consequat", @"metus", @"maecenas", @"nec", @"suscipit", @"libero", @"iaculis", @"augue", @"tempus", @"bibendum", @"pellentesque", @"curabitur", @"eget", @"phasellus", @"pretium", @"neque", @"nibh", @"tincidunt", @"potenti", @"viverra", @"interdum", @"lobortis", @"enim", @"nulla", @"hac", @"varius", @"id", @"habitant", @"in", @"suspendisse", @"torquent", @"per", @"fringilla", @"imperdiet", @"vehicula", @"rhoncus", @"himenaeos", @"sodales", @"luctus", @"lacus", @"sollicitudin", @"non", @"porttitor", @"proin"];
+    }
+    
+    NSString* randomString = array[arc4random_uniform(array.count)];
+    NSMutableArray* returnArray = [NSMutableArray arrayWithObject: randomString];
+    NSUInteger generatedLength = randomString.length;
+    
+    while(generatedLength < length){
+        randomString = array[arc4random_uniform(array.count)];
+        [returnArray addObject:randomString];
+        generatedLength = generatedLength + randomString.length + 1;
+    }
+    
+    return [[returnArray componentsJoinedByString:@" "] substringToIndex:length];
 }
 
 @end
