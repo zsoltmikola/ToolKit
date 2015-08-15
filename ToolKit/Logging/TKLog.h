@@ -32,10 +32,12 @@ TKLogMessage* message = [[TKLogMessage alloc] initWithDomain:domain withFile:__F
 [TKLog log:message];\
 }\
 
-#define TKLogWarn(format, ...) TKLogMessage(@"warning", format, ##__VA_ARGS__)
-#define TKLogInfo(format, ...) TKLogMessage(@"info" , format, ##__VA_ARGS__)
+#define TKLogFlow(format, ...) TKLogMessage(@"appflow", format, ##__VA_ARGS__)
+#define TKLogPerformance(format, ...) TKLogMessage(@"performance" , format, ##__VA_ARGS__)
+
 #define TKLogDebug(format, ...) TKLogMessage(@"debug" , format, ##__VA_ARGS__)
-#define TKLogVerbose(format, ...) TKLogMessage(@"verbose" , format, ##__VA_ARGS__)
+#define TKLogError(error) TKLogMessage(@"error", error.description)
+#define TKLogException(exception) TKLogMessage(@"exception", exception.description)
 
 #import "TKLogCollectorTerminal.h"
 
