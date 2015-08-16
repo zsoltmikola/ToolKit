@@ -70,7 +70,11 @@
     UIView* commonSuperview;
     
     for (NSLayoutConstraint* constraint in _currentConstraints) {
-        commonSuperview = [self superviewWithView:constraint.firstItem withView:constraint.secondItem];
+        commonSuperview = constraint.firstItem;
+        if (constraint.secondItem) {
+            commonSuperview = [self superviewOfViews:@[constraint.firstItem, constraint.secondItem]];
+        }
+
         if (commonSuperview != self) {
             commonSuperview.translatesAutoresizingMaskIntoConstraints = NO;
         }
@@ -127,17 +131,13 @@
     return nil;
 }
 
-- (UIView*)superviewWithView:(UIView*)firstView withView:(UIView*)secondView{
+-(UIView*)superviewOfViews:(NSArray*)views{
 
-    if (!secondView) {
-        return firstView;
-    }
-    
     NSMutableSet* commonAncestors = [NSMutableSet set];
     NSMutableSet* ancestors = [NSMutableSet set];
     
-    // Gather all ancestor of the two views into the common ancestors set.
-    for (UIView* aView in @[firstView, secondView]) {
+    // Gather all ancestor of views into the common ancestors set.
+    for (UIView* aView in views) {
         UIView* ancestor = aView.superview;
         while (nil != ancestor) {
             [ancestors addObject:ancestor];
@@ -153,17 +153,17 @@
     }
     
     if (!commonAncestors.count) {
-        NSAssert(!commonAncestors.count, @"No common superview");
+        return nil;
     }
     
     // Bubble up from any view until the first ancestor in the common ancestor set
-    UIView* aView = firstView;
+    UIView* aView = views.firstObject;
     while (![commonAncestors containsObject:aView]) {
         aView = aView.superview;
     }
     
     return aView;
-    
+
 }
 
 - (void)dealloc{
@@ -201,6 +201,8 @@
 
 @implementation TKLayout (ConstraintConstructors)
 
+#pragma mark - Single Views
+
 - (NSLayoutConstraint *)alignAttribute:(NSLayoutAttribute)alignedViewAttribute ofView:(UIView *)alignedView toAttribute:(NSLayoutAttribute)baseViewAttribute ofView:(UIView *)baseView withRelation:(NSLayoutRelation)relation withInset:(CGFloat)inset withPriority:(NSUInteger)priority{
     
     /// Noramlizing priority
@@ -234,42 +236,82 @@
     return [self alignAttribute:alignedViewAttribute ofView:alignedView toAttribute:baseViewAttribute ofView:baseView withRelation:NSLayoutRelationEqual withInset:0.0f withPriority:1000];
 }
 
-- (NSLayoutConstraint*)alignAttribute:(NSLayoutAttribute)alignedViewAttribute ofView:(UIView*)alignedView withRelation:(NSLayoutRelation)relation withInset:(CGFloat)inset withPriority:(NSUInteger)priority{
-    return [self alignAttribute:alignedViewAttribute ofView:alignedView toAttribute:NSLayoutAttributeNotAnAttribute ofView:nil withRelation:relation withInset:inset withPriority:priority];
+#pragma mark - Dimensions
+
+- (NSArray*)alignAttribute:(NSLayoutAttribute)alignedViewAttribute ofViews:(NSArray*)alignedViews withRelation:(NSLayoutRelation)relation withInset:(CGFloat)inset withPriority:(NSUInteger)priority{
+    NSMutableArray* constraints = @[].mutableCopy;
+    
+    for (UIView* aView in alignedViews) {
+        [constraints addObject:[self alignAttribute:alignedViewAttribute ofView:aView toAttribute:NSLayoutAttributeNotAnAttribute ofView:nil withRelation:relation withInset:inset withPriority:priority]];
+    }
+    return constraints;
 }
 
-- (NSLayoutConstraint*)alignAttribute:(NSLayoutAttribute)alignedViewAttribute ofView:(UIView*)alignedView withRelation:(NSLayoutRelation)relation withInset:(CGFloat)inset{
-    return [self alignAttribute:alignedViewAttribute ofView:alignedView toAttribute:NSLayoutAttributeNotAnAttribute ofView:nil withRelation:relation withInset:inset withPriority:1000];
+- (NSArray*)alignAttribute:(NSLayoutAttribute)alignedViewAttribute ofViews:(NSArray*)alignedViews withRelation:(NSLayoutRelation)relation withInset:(CGFloat)inset{
+    return [self alignAttribute:alignedViewAttribute ofViews:alignedViews withRelation:relation withInset:inset withPriority:1000];
 }
 
-- (NSArray *)alignAttribute:(NSLayoutAttribute)attribute forViews:(NSArray *)views withRelation:(NSLayoutRelation)relation withInset:(CGFloat)inset withPriority:(NSUInteger)priority{
+#pragma mark - Multiple Views
+
+- (NSArray *)alignAttribute:(NSLayoutAttribute)attribute ofViews:(NSArray *)views toView:(UIView*)baseView withRelation:(NSLayoutRelation)relation withInset:(CGFloat)inset withPriority:(NSUInteger)priority{
 
     NSMutableArray* constraints = @[].mutableCopy;
     NSLayoutConstraint* aConstraint;
-    
-    NSEnumerator* enumerator = views.objectEnumerator;
-    UIView* baseView = enumerator.nextObject;
-    UIView* alignedView = enumerator.nextObject;
-    
-    while (alignedView) {
+
+    for (UIView* alignedView in views) {
         aConstraint = [self alignAttribute:attribute ofView:alignedView toAttribute:attribute ofView:baseView withRelation:relation withInset:inset withPriority:priority];
         [constraints addObject:aConstraint];
-        alignedView = enumerator.nextObject;
     }
     
     return constraints;
 }
 
-- (NSArray *)alignAttribute:(NSLayoutAttribute)attribute forViews:(NSArray *)views withRelation:(NSLayoutRelation)relation withInset:(CGFloat)inset{
-    return [self alignAttribute:attribute forViews:views withRelation:relation withInset:inset withPriority:1000];
+- (NSArray *)alignAttribute:(NSLayoutAttribute)attribute ofViews:(NSArray *)views toView:(UIView*)baseView withRelation:(NSLayoutRelation)relation withInset:(CGFloat)inset{
+    return [self alignAttribute:attribute ofViews:views toView:baseView withRelation:relation withInset:inset withPriority:1000];
 }
 
-- (NSArray*)alignAttribute:(NSLayoutAttribute)attribute forViews:(NSArray*)views withRelation:(NSLayoutRelation)relation{
-    return [self alignAttribute:attribute forViews:views withRelation:relation withInset:0.0f withPriority:1000];
+- (NSArray*)alignAttribute:(NSLayoutAttribute)attribute ofViews:(NSArray*)views toView:(UIView*)baseView withRelation:(NSLayoutRelation)relation{
+    return [self alignAttribute:attribute ofViews:views toView:baseView withRelation:relation withInset:0.0f withPriority:1000];
 }
 
-- (NSArray *)alignAttribute:(NSLayoutAttribute)attribute forViews:(NSArray *)views{
-    return [self alignAttribute:attribute forViews:views withRelation:NSLayoutRelationEqual withInset:0.0f withPriority:1000];
+- (NSArray *)alignAttribute:(NSLayoutAttribute)attribute ofViews:(NSArray *)views toView:(UIView*)baseView{
+    return [self alignAttribute:attribute ofViews:views toView:baseView withRelation:NSLayoutRelationEqual withInset:0.0f withPriority:1000];
+}
+
+#pragma mark - Fromations
+
+- (NSArray*)formColumnWithViews:(NSArray*)views withRelation:(NSLayoutRelation)relation withSpacing:(NSInteger)spacing{
+    
+    NSMutableArray* constraints = @[].mutableCopy;
+    
+    NSEnumerator* objectEnumerator = [views objectEnumerator];
+    UIView* topView = [objectEnumerator nextObject];
+    UIView* bottomView = [objectEnumerator nextObject];
+    
+    while (bottomView) {
+        [constraints addObject:[self alignAttribute:NSLayoutAttributeTop ofView:bottomView toAttribute:NSLayoutAttributeBottom ofView:topView withRelation:relation withInset:spacing]];
+        topView = bottomView;
+        bottomView = [objectEnumerator nextObject];
+    }
+    
+    return constraints;
+    
+}
+
+- (NSArray*)formRowWithViews:(NSArray*)views withRelation:(NSLayoutRelation)relation withSpacing:(NSInteger)spacing{
+    NSMutableArray* constraints = @[].mutableCopy;
+    
+    NSEnumerator* objectEnumerator = [views objectEnumerator];
+    UIView* leftView = [objectEnumerator nextObject];
+    UIView* rightView = [objectEnumerator nextObject];
+    
+    while (rightView) {
+        [constraints addObject:[self alignAttribute:NSLayoutAttributeLeft ofView:rightView toAttribute:NSLayoutAttributeRight ofView:leftView withRelation:relation withInset:spacing]];
+        leftView = rightView;
+        rightView = [objectEnumerator nextObject];
+    }
+    
+    return constraints;
 }
 
 @end

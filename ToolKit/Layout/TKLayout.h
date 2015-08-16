@@ -45,17 +45,24 @@
 - (NSLayoutConstraint*)alignAttribute:(NSLayoutAttribute)alignedViewAttribute ofView:(UIView*)alignedView toAttribute:(NSLayoutAttribute)baseViewAttribute ofView:(UIView*)baseView;
 
 // Dimensions
-- (NSLayoutConstraint*)alignAttribute:(NSLayoutAttribute)alignedViewAttribute ofView:(UIView*)alignedView withRelation:(NSLayoutRelation)relation withInset:(CGFloat)inset withPriority:(NSUInteger)priority;
+- (NSArray*)alignAttribute:(NSLayoutAttribute)alignedViewAttribute ofViews:(NSArray*)alignedViews withRelation:(NSLayoutRelation)relation withInset:(CGFloat)inset withPriority:(NSUInteger)priority;
 
-- (NSLayoutConstraint*)alignAttribute:(NSLayoutAttribute)alignedViewAttribute ofView:(UIView*)alignedView withRelation:(NSLayoutRelation)relation withInset:(CGFloat)inset;
+- (NSArray*)alignAttribute:(NSLayoutAttribute)alignedViewAttribute ofViews:(NSArray*)alignedViews withRelation:(NSLayoutRelation)relation withInset:(CGFloat)inset;
 
 // Multiple views
-- (NSArray*)alignAttribute:(NSLayoutAttribute)attribute forViews:(NSArray*)views withRelation:(NSLayoutRelation)relation withInset:(CGFloat)inset withPriority:(NSUInteger)priority;
+- (NSArray*)alignAttribute:(NSLayoutAttribute)attribute ofViews:(NSArray*)views toView:(UIView*)baseView withRelation:(NSLayoutRelation)relation withInset:(CGFloat)inset withPriority:(NSUInteger)priority;
 
-- (NSArray*)alignAttribute:(NSLayoutAttribute)attribute forViews:(NSArray*)views withRelation:(NSLayoutRelation)relation withInset:(CGFloat)inset;
+- (NSArray*)alignAttribute:(NSLayoutAttribute)attribute ofViews:(NSArray*)views toView:(UIView*)baseView withRelation:(NSLayoutRelation)relation withInset:(CGFloat)inset;
 
-- (NSArray*)alignAttribute:(NSLayoutAttribute)attribute forViews:(NSArray*)views withRelation:(NSLayoutRelation)relation;
+- (NSArray*)alignAttribute:(NSLayoutAttribute)attribute ofViews:(NSArray*)views toView:(UIView*)baseView withRelation:(NSLayoutRelation)relation;
 
-- (NSArray*)alignAttribute:(NSLayoutAttribute)attribute forViews:(NSArray*)views;
+- (NSArray*)alignAttribute:(NSLayoutAttribute)attribute ofViews:(NSArray*)views toView:(UIView*)baseView;
+
+// Formations
+
+- (NSArray*)formColumnWithViews:(NSArray*)views withRelation:(NSLayoutRelation)relation withSpacing:(NSInteger)spacing;
+
+- (NSArray*)formRowWithViews:(NSArray*)views withRelation:(NSLayoutRelation)relation withSpacing:(NSInteger)spacing;
+
 
 @end
