@@ -75,4 +75,64 @@
     return self[((arc4random_uniform(0xFFFFFF) << 8) + 0x00000088)];    
 }
 
+- (UIColor*)blackColor{
+    return self[0x000000ff];
+}
+
+- (UIColor*)darkGrayColor{
+    return self[0x555555ff];
+}
+
+- (UIColor*)lightGrayColor{
+    return self[0xaaaaaaff];
+}
+
+- (UIColor*)whiteColor{
+    return self[0xffffffff];
+}
+
+- (UIColor*)grayColor{
+    return self[0x7f7f7fff];
+}
+
+- (UIColor*)redColor{
+    return self[0xff0000ff];
+}
+
+- (UIColor*)greenColor{
+    return self[0x00ff00ff];
+}
+
+- (UIColor*)blueColor{
+    return self[0x0000ffff];
+}
+
+- (UIColor*)cyanColor{
+    return self[0x00ffffff];
+}
+
+- (UIColor*)yellowColor{
+    return self[0xffff00ff];
+}
+
+- (UIColor*)magentaColor{
+    return self[0xff00ffff];
+}
+
+- (UIColor*)orangeColor{
+    return self[0xff7f00ff];
+}
+
+- (UIColor*)purpleColor{
+    return self[0x7f007fff];
+}
+
+- (UIColor*)brownColor{
+    return self[0x996633ff];
+}
+
+- (UIColor*)clearColor{
+    return self[0x00000000];
+}
+
 @end

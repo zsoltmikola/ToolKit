@@ -16,4 +16,20 @@
 
 - (UIColor*)randomColor;
 
+- (UIColor*)blackColor;
+- (UIColor*)darkGrayColor;
+- (UIColor*)lightGrayColor;
+- (UIColor*)whiteColor;
+- (UIColor*)grayColor;
+- (UIColor*)redColor;
+- (UIColor*)greenColor;
+- (UIColor*)blueColor;
+- (UIColor*)cyanColor;
+- (UIColor*)yellowColor;
+- (UIColor*)magentaColor;
+- (UIColor*)orangeColor;
+- (UIColor*)purpleColor;
+- (UIColor*)brownColor;
+- (UIColor*)clearColor;
+
 @end
