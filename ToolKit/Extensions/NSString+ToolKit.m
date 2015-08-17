@@ -1,8 +1,3 @@
-/**
- * @file    NSString+ToolKit.h
- * @author  Klaus-Peter Dudas
- */
-
 #import <CommonCrypto/CommonDigest.h>
 #import "NSString+ToolKit.h"
 
