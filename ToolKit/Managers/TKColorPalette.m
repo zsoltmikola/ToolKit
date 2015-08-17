@@ -67,4 +67,12 @@
     return self[idx];
 }
 
+-(UIColor*) randomColor{
+    // - Specifically, to generate a random number between 0 and N - 1, use arc4random_uniform(), which avoids modulo bias.
+    // modulo bias: http://eternallyconfuzzled.com/arts/jsw_art_rand.aspx
+    // - arc4random does not require an initial seed
+    // - random color then shifted and added 50% transparency for overlap recognition
+    return self[((arc4random_uniform(0xFFFFFF) << 8) + 0x00000088)];    
+}
+
 @end

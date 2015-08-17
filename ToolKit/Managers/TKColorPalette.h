@@ -14,4 +14,6 @@
 - (UIColor*)objectForKeyedSubscript:(NSString*)idx;
 - (UIColor*)objectForKey:(NSString*)idx;
 
+- (UIColor*)randomColor;
+
 @end
