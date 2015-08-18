@@ -26,12 +26,17 @@
     return self;
 }
 
+- (void)loadLayout{}
+
 - (void)addSubview:(UIView *)view{
     [super addSubview:view];
     view.translatesAutoresizingMaskIntoConstraints = NO;
 }
 
 - (void)setLayoutRelatedNotifications:(NSArray *)layoutRelatedNotifications{
+    
+    [self loadLayout];
+    
     _layoutRelatedNotifications = layoutRelatedNotifications;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];

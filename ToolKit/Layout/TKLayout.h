@@ -22,7 +22,7 @@
 
 @end
 
-@interface TKLayout : UIView <TKLayoutDatasource>
+@interface TKLayout : UIView <TKLayoutDatasource, TKLayoutDelegate>
 
 @property (nonatomic, strong) NSArray* layoutRelatedNotifications;
 @property (nonatomic, strong) id<TKLayoutDatasource> datasource;
@@ -30,6 +30,8 @@
 
 @property (nonatomic, assign) NSUInteger gridSize;
 @property (nonatomic, assign) BOOL isGridHidden;
+
+- (void)loadLayout;
 
 @end
 
