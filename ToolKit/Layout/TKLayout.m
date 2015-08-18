@@ -26,7 +26,7 @@
     return self;
 }
 
-- (void)resetLayout{}
+- (void)layoutDidLoad{}
 
 - (void)addSubview:(UIView *)view{
     [super addSubview:view];
@@ -35,7 +35,7 @@
 
 - (void)setLayoutRelatedNotifications:(NSArray *)layoutRelatedNotifications{
     
-    [self resetLayout];
+    [self layoutDidLoad];
     
     _layoutRelatedNotifications = layoutRelatedNotifications;
     

@@ -31,7 +31,7 @@
 @property (nonatomic, assign) NSUInteger gridSize;
 @property (nonatomic, assign) BOOL isGridHidden;
 
-- (void)resetLayout;
+- (void)layoutDidLoad;
 
 @end
 
