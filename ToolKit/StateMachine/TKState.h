@@ -4,7 +4,7 @@
 
 @interface TKState : NSObject
 
-@property (nonatomic, weak) NSMutableSet* destinationStates;
+@property (nonatomic, strong) NSMutableSet* destinationStates;
 
 - (void)willMakeTransitionTo:(Class)state;
 - (void)didMakeTransitionFrom:(Class)state;

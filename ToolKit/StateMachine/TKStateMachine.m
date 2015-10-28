@@ -18,28 +18,38 @@
 {
     if (!(self = [super init])) return self;
     
-    _processingQueue = [[TKQueue alloc] initWithDomain:"toolkit.statemachine"];
+    NSString* domain = [NSString stringWithFormat:@"%@.%@", @"toolkit.statemachine", [self.class description]];
+    
+    _processingQueue = [[TKQueue alloc] initWithDomain:[domain cStringUsingEncoding:NSASCIIStringEncoding]];
     _states = @{}.mutableCopy;
    
     return self;
 }
 
-- (void)addStates:(NSArray *)states{
-    [_processingQueue run:^{
-        for (Class state in states) {
-            _states[[state description]] = [state new];
-        }
-    }];
+- (id)stateForKey:(Class)state{
+    return _states[[state description]];
 }
 
-- (void)addTransitionsFromState:(Class)source toStates:(NSArray *)destinations{
+- (void)addState:(Class)state{
+    if (!_states[[state description]]) {
+        _states[[state description]] = [state new];
+    }
+}
+
+- (void)addTransitionsFromState:(Class)state toStates:(NSArray *)destinations{
     
-    [_processingQueue run:^{
+    [self.processingQueue run:^{
         
-        TKState* sourceState = _states[[source description]];
+        [self addState:state];
+        
+        for (Class destinationState in destinations) {
+            [self addState:destinationState];
+        }
+
+        TKState* sourceState = _states[[state description]];
         
         for (Class state in destinations) {
-            [sourceState.destinationStates addObject:[state description]];
+            [sourceState.destinationStates addObject:state];
         }
     }];
 }
@@ -53,19 +63,18 @@
                 [currentState willMakeTransitionTo:state];
                 Class temp = _state;
                 _state = state;
-                currentState = _states[[_state description]];
-                [currentState didMakeTransitionFrom:temp];
+                [_states[[_state description]] didMakeTransitionFrom:temp];
             }else{
                 _state = state;
+                [_states[[_state description]] didMakeTransitionFrom:nil];
             }
         }
     }];
-
 }
 
 - (BOOL)isValidDestinationState:(Class)state{
     TKState* currentState = _states[[_state description]];
-    return currentState ? ([currentState.destinationStates containsObject:[state description]] && _states[[state description]]) : YES;
+    return currentState ? ([currentState.destinationStates containsObject:state] && _states[[state description]]) : YES;
 }
 
 @end

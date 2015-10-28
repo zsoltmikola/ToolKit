@@ -4,7 +4,7 @@
 
 @property (nonatomic, weak) Class state;
 
-- (void)addStates:(NSArray *)states;
-- (void)addTransitionsFromState:(Class)source toStates:(NSArray *)destinations;
+- (void)addTransitionsFromState:(Class)state toStates:(NSArray *)destinations;
+- (id)stateForKey:(Class)state;
 
 @end
