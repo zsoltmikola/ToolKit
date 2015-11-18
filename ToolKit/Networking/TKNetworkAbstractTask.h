@@ -12,6 +12,6 @@
 @property (nonatomic, strong) NSURLSession* session;
 @property (nonatomic, strong) NSURLRequest* request;
 
-- (void)executeBodyWithSelf:(TKNetworkAbstractTask*)weakSelf withData:(NSData *)data withResponse:(NSURLResponse *)response withError:(NSError *)error;
+- (void)executeWithData:(NSData *)data withResponse:(NSURLResponse *)response withError:(NSError *)error;
 
 @end

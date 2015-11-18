@@ -14,44 +14,43 @@
 
 @implementation TKNetworkSession
 
-- (TKNetworkDataTask *)dataTaskWithRequest:(NSURLRequest *)request{
-    if (!self.configuration) {
-        self.configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        self.session = [NSURLSession sessionWithConfiguration:self.configuration];
-    }
-    
-    TKNetworkDataTask* task = [TKNetworkDataTask new];
+- (id)task:(TKNetworkAbstractTask*)task WithRequest:(NSURLRequest *)request{
     task.session = self.session;
     task.request = request;
-    
     return task;
+}
+
+- (TKNetworkDataTask *)dataTaskWithRequest:(NSURLRequest *)request{
+    return [self task:[TKNetworkDataTask new] WithRequest:request];
 }
 
 - (TKNetworkDownloadTask *)downloadTaskWithRequest:(NSURLRequest *)request{
-    if (!self.configuration) {
-        self.configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        self.session = [NSURLSession sessionWithConfiguration:self.configuration];
-    }
-    
-    TKNetworkDownloadTask* task = [TKNetworkDownloadTask new];
-    task.session = self.session;
-    task.request = request;
-    
-    return task;
+    return [self task:[TKNetworkDownloadTask new] WithRequest:request];
 }
 
 - (TKNetworkUploadTask *)uploadTaskWithRequest:(NSURLRequest *)request withData:(NSData *)data{
-    if (!self.configuration) {
-        self.configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        self.session = [NSURLSession sessionWithConfiguration:self.configuration];
-    }
-    
+
     TKNetworkUploadTask* task = [TKNetworkUploadTask new];
-    task.session = self.session;
-    task.request = request;
     task.data = data;
     
-    return task;
+    return [self task:task WithRequest:request];
+
+}
+
+-(NSURLSession *)session{
+    if (!_session) {
+        _session = [NSURLSession sessionWithConfiguration:self.configuration];
+    }
+    
+    return _session;
+}
+
+- (NSURLSessionConfiguration *)configuration{
+    if(!_configuration){
+        _configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    }
+    
+    return _configuration;
 }
 
 @end

@@ -9,20 +9,22 @@
 
 @implementation TKNetworkAbstractTask
 
--(void)executeBodyWithSelf:(TKNetworkAbstractTask*)weakSelf withData:(NSData *)data withResponse:(NSURLResponse *)response withError:(NSError *)error{
+-(void)executeWithData:(NSData *)data withResponse:(NSURLResponse *)response withError:(NSError *)error{
    
     TKNetworkResponse* networkResponse = [[TKNetworkResponse alloc] initWithResponse:response];
     networkResponse.body = data;
     networkResponse.error = error;
-       
+    
+    TKNetworkAbstractTask* __weak wSelf = self;
+    
     if (error) {
-        [weakSelf abortWithError:error];
+        [wSelf abortWithError:error];
         return;
     }
     
-    if (weakSelf.nextTask) {
-        weakSelf.nextTask.param = networkResponse;
-        [weakSelf.nextTask execute];
+    if (wSelf.nextTask) {
+        wSelf.nextTask.param = networkResponse;
+        [wSelf.nextTask execute];
     }
     
 }

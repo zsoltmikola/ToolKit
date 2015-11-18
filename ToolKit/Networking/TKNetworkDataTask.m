@@ -16,10 +16,9 @@
 
 - (void)execute{
     
-    TKNetworkDataTask* __weak weakSelf = self;
     _task = [self.session dataTaskWithRequest:self.request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
-        [self executeBodyWithSelf:weakSelf withData:data withResponse:response withError:error];
+        [self executeWithData:data withResponse:response withError:error];
         
     }];
     [_task resume];
