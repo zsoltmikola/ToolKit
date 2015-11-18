@@ -41,6 +41,7 @@ typedef NS_OPTIONS(NSUInteger, TKNetwrokrequestAcceptEncoding)
 @property (nonatomic, assign) TKNetwrokrequestAcceptEncoding encoding;
 @property (nonatomic, assign) NSURLRequestCachePolicy cachePolicy;
 
++ (instancetype)requestWithSessionConfiguration:(NSURLSessionConfiguration*)sessionConfiguration;
 - (NSMutableURLRequest*)build;
 
 @end

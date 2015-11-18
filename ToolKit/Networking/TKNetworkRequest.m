@@ -14,6 +14,14 @@
 
 @implementation TKNetworkRequest
 
++ (instancetype)requestWithSessionConfiguration:(NSURLSessionConfiguration *)sessionConfiguration{
+    TKNetworkRequest* request = [self new];
+    request.HTTPShouldUsePipelining = sessionConfiguration.HTTPShouldUsePipelining;
+    request.allowsCellularAccess = sessionConfiguration.allowsCellularAccess;
+    request.timeoutInterval = sessionConfiguration.timeoutIntervalForRequest;
+    return request;
+}
+
 - (instancetype)init
 {
     if (!(self = [super init])) return self;
