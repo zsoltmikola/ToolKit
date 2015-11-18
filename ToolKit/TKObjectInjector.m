@@ -4,10 +4,10 @@
  * @copyright Zsolt Mikola. All rights reserved.
  */
 
-#import "TKDependencyInjector.h"
+#import "TKObjectInjector.h"
 #import <objc/runtime.h>
 
-@interface TKDependencyInjector ()
+@interface TKObjectInjector ()
 
 @property (nonatomic, strong) NSMapTable* mapping;
 
@@ -15,7 +15,7 @@
 
 Class WWgetPropertyType(objc_property_t property);
 
-@implementation TKDependencyInjector
+@implementation TKObjectInjector
 
 - (instancetype)init
 {
@@ -28,7 +28,7 @@ Class WWgetPropertyType(objc_property_t property);
     return self;
 }
 
-- (void)registerInstance:(id)anInstance{
+- (void)registerObject:(id)anInstance{
     
     if (!anInstance) {
         return;
@@ -37,11 +37,11 @@ Class WWgetPropertyType(objc_property_t property);
     [_mapping setObject:anInstance forKey:[anInstance class]];
 }
 
-- (BOOL)hasRegistered:(Class)instanceClass{
-    return ([_mapping objectForKey:instanceClass] != nil);
+- (BOOL)hasRegistered:(Class)objectClass{
+    return ([_mapping objectForKey:objectClass] != nil);
 }
 
-- (void)injectInstancesForObject:(id)anObject{
+- (void)injectObjectsForObject:(id)anObject{
 
     unsigned int propertyCount, i;
     objc_property_t *propertyList = class_copyPropertyList([anObject class], &propertyCount);
