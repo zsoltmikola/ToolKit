@@ -31,4 +31,6 @@
 
 @interface TKPropertyListSerializer : NSObject <TKSerializer>
 
+@property (nonatomic, assign) NSStringEncoding encoding;
+
 @end

@@ -10,6 +10,7 @@
 
 @property (nonatomic, strong) NSData* body;
 @property (nonatomic, strong, readonly) id unserializedBody;
+@property (nonatomic, strong) NSDictionary* serializers;
 @property (nonatomic, strong) NSError* error;
 @property (nonatomic, strong) NSDictionary* headers;
 @property (nonatomic, strong) NSURL* URL;

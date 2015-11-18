@@ -34,6 +34,8 @@
         }
     }
 
+    self.serializers = @{@"text/" : [TKStringSerializer new], @"application/json" : [TKJSONSerializer new], @"application/x-plist" : [TKPropertyListSerializer new]};
+    
     return self;
 }
 
@@ -57,25 +59,18 @@
        return nil;
     }
     
-    if ([serializerType rangeOfString:@"text/"].location != NSNotFound) {
-        TKStringSerializer* serializer = [TKStringSerializer new];
-        serializer.encoding = self.charset;
-        _unserializedBody =  [serializer unserialize:_body];
-    }
-    
-    if ([serializerType isEqualToString:@"application/json"]) {
-        TKJSONSerializer* serializer = [TKJSONSerializer new];
-        serializer.encoding = self.charset;
-        _unserializedBody = [serializer unserialize:_body];
-    }
-    
-    if ([serializerType isEqualToString:@"application/x-plist"]) {
-        _unserializedBody = [[TKPropertyListSerializer new] unserialize:_body];
-    }
+    [self.serializers enumerateKeysAndObjectsUsingBlock:^(NSString*  _Nonnull type, id<TKSerializer>  _Nonnull serializer, BOOL * _Nonnull stop) {
+        if ([serializerType rangeOfString:type].location != NSNotFound) {
+            serializer.encoding = self.charset;
+            _unserializedBody =  [serializer unserialize:_body];
+            *stop = YES;
+        }
+    }];
     
     if (nil != _unserializedBody) return _unserializedBody;
     
     return nil;
+    
 }
 
 - (void)setBody:(NSData *)body{
